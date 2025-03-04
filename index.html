@@ -17,13 +17,13 @@
         class="container bg-white p-4 rounded shadow"
         style="max-width: 600px"
       >
-        <form name="info" id="info" onsubmit="return validateForm()" required>
+        <form name="info" id="info"  class="needs-validation"novalidate required>
           <div class="row mb-3">
             <div class="col-md-4">
               <label for="f_name" class="form-label">First Name: </label>
               <input
                 type="text"
-                id="f-name"
+                id="validationCustom01"
                 required
                 placeholder="First Name"
                 class="form-control"
@@ -73,7 +73,7 @@
                 />
                 <label for="female">Female</label>
               </div>
-              <div class="form-check">
+              <div class="form-check ">
                 <input
                   type="radio"
                   class="form-check-input"
@@ -115,9 +115,12 @@
                 type="text"
                 name="country"
                 id="country"
-                
+                required
                 class="form-control"
               />
+              <div class="invalid-feedback">
+                Country is Required
+              </div>
             </div>
             <div class="col-md-4">
               <label for="province" class="form-label">Province: </label>
@@ -125,9 +128,12 @@
                 type="text"
                 name="province"
                 id="province"
-                
+                required
                 class="form-control"
               />
+              <div class="invalid-feedback">
+                Province is Required
+              </div>
             </div>
             <div class="col-md-4">
               <label for="town" class="form-label">Town: </label>
@@ -135,9 +141,12 @@
                 type="text"
                 name="town"
                 id="town"
-                
+                required
                 class="form-control"
               />
+              <div class="invalid-feedback">
+                Town is Required
+              </div>
             </div>
           </div>
           <div class="row mb-3">
@@ -147,9 +156,12 @@
                 type="text"
                 name="add1"
                 id="add1"
-                
+                required
                 class="form-control"
               />
+              <div class="invalid-feedback">
+                Address 1 is Required
+              </div>
             </div>
             <div class="col-md-6">
               <label for="add2" class="form-label">Address 2: </label>
@@ -176,53 +188,24 @@ submit
     
     <script>
 
-    
+             const clearForm = () => {
+      document.forms["info"].reset()
+             }
+    (()=> {
+      'use strict'
 
+      const forms = document.querySelectorAll('.needs-validation')
 
-
-      const validateForm= () => {
-        let form = document.forms["info"]
-
-        let country =form["country"].value
-        let province = form["province"].value
-        let town = form["town"].value
-        let add1 = form["add1"].value
-
-        if(form === ""){
-          alert("Required filled Missing")
-          return false
-        }
-
-        if(country === ""){
-          alert("Country is Required")
-          return false
-        }
-
-        if(province === ""){
-          alert("Province is Required")
-          return false;
-        }
-
-        if(town === ""){
-          alert("Town is Required")
-          return false;
-        }
-
-        if(add1 === ""){
-          alert("Address 1 is Required")
-          return false;
-        }
-
-        return true
-
-      }
-
-
-      const clearForm = () => {
-        document.forms["info"].reset()
-      }
-
-
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', e => {
+          if(!form.checkValidity()){
+            e.preventDefault()
+            e.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
+    }) ()
   
     </script>
   
